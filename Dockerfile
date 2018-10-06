@@ -8,3 +8,6 @@ RUN yum -y groupinstall "Development Tools" \
               zlib-devel
 
 COPY ./compilegit.py /compilegit.py
+
+RUN ./compilegit.py
+

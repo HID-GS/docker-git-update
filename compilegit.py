@@ -31,25 +31,27 @@ try:
     print stderr
 
     print 'configuring git'
-    print os.getcwd()
-    print glob.glob('git/*')
     os.chdir(glob.glob('git/*')[0])
-    print os.getcwd()
     p = Popen(['make', 'configure'], stdout=PIPE, stderr=PIPE)
     (stdout, stderr) = p.communicate()
-    Popen(['./configure', '--prefix=/usr/local'], stdout=PIPE, stderr=PIPE)
+    p = Popen(['./configure', '--prefix=/usr/local'], stdout=PIPE, stderr=PIPE)
     (stdout, stderr) = p.communicate()
     print stderr
 
     print 'compiling git'
-    Popen(['make', '-j8'], stdout=PIPE, stderr=PIPE)
+    p = Popen(['make', '-j8'], stdout=PIPE, stderr=PIPE)
     (stdout, stderr) = p.communicate()
     print stderr
 
     print 'installing git'
-    Popen(['make', 'install'], stdout=PIPE, stderr=PIPE)
+    p = Popen(['make', 'install'], stdout=PIPE, stderr=PIPE)
     (stdout, stderr) = p.communicate()
     print stderr
+
+    version_file = '/version.txt'
+    print 'creating %s' % version_file
+    with fh as open(version_file):
+        fh.write(git_current)
 
 except:
     print 'Unexpected error:'
