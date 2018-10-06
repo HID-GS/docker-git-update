@@ -50,7 +50,7 @@ try:
 
     version_file = '/version.txt'
     print 'creating %s' % version_file
-    with fh as open(version_file):
+    with open(version_file) as fh:
         fh.write(git_current)
 
 except:
