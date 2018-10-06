@@ -7,3 +7,4 @@ RUN yum -y groupinstall "Development Tools" \
               perl-devel \
               zlib-devel
 
+COPY ./compilegit.py /compilegit.py
