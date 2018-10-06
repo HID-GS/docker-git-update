@@ -35,14 +35,21 @@ try:
     print glob.glob('git/*')
     os.chdir(glob.glob('git/*')[0])
     print os.getcwd()
-    Popen(['make', 'configure'])
-    Popen(['./configure', '--prefix=/usr/local'])
+    p = Popen(['make', 'configure'], stdout=PIPE, stderr=PIPE)
+    (stdout, stderr) = p.communicate()
+    Popen(['./configure', '--prefix=/usr/local'], stdout=PIPE, stderr=PIPE)
+    (stdout, stderr) = p.communicate()
+    print stderr
 
     print 'compiling git'
-    Popen(['make', '-j8'])
+    Popen(['make', '-j8'], stdout=PIPE, stderr=PIPE)
+    (stdout, stderr) = p.communicate()
+    print stderr
 
     print 'installing git'
-    Popen(['make', 'install'])
+    Popen(['make', 'install'], stdout=PIPE, stderr=PIPE)
+    (stdout, stderr) = p.communicate()
+    print stderr
 
 except:
     print 'Unexpected error:'
